@@ -26,9 +26,11 @@ test.beforeEach(async ({ page }) => {
   await homePage.assertYourFeedTabIsVisible();
 });
 
-test('Creat an article without required fields', async () => {
+test('Creat an article without text', async () => {
   await homePage.clickNewArticleLink();
-
+  await createArticlePage.fillArticleTitleField('Tralalelo tralala');
+  await createArticlePage.fillDescriptionField('tun tun tun sahur');
+  await createArticlePage.fillEnterTagField('tag');
   await createArticlePage.clickPublishArticleButton();
-  await createArticlePage.assertErrorMessageContainsText('Article title cannot be empty',);
+  await createArticlePage.assertErrorMessageContainsText('Article body cannot be empty');
 });

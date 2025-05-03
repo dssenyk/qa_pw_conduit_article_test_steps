@@ -26,9 +26,14 @@ test.beforeEach(async ({ page }) => {
   await homePage.assertYourFeedTabIsVisible();
 });
 
-test('Creat an article without required fields', async () => {
+test('create an article with required and optional fields', async () => {
   await homePage.clickNewArticleLink();
-
+  await createArticlePage.fillArticleTitleField('Tralalelo tralala');
+  await createArticlePage.fillDescriptionField('tun tun tun sahur');
+  await createArticlePage.fillWriteYourArticleField('sinpazini hydzini');
+  await createArticlePage.fillEnterTagField('tag');
   await createArticlePage.clickPublishArticleButton();
-  await createArticlePage.assertErrorMessageContainsText('Article title cannot be empty',);
+  await createArticlePage.assertArticleTitleOnArticlePage('Tralalelo tralala');
+  await createArticlePage.assertArticleMainContext('sinpazini hydzini');
+  await createArticlePage.assertTagOnArticlePage('tag');
 });
