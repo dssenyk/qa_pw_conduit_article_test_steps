@@ -7,6 +7,13 @@ import { faker } from '@faker-js/faker';
 let homePage;
 let createArticlePage;
 
+const article = {
+  title: faker.lorem.sentence(),
+  description: faker.lorem.paragraph(),
+  content: faker.lorem.paragraph(),
+  tag: faker.lorem.word(),
+};
+
 test.beforeEach(async ({ page }) => {
   const signUpPage = new SignUpPage(page);
   homePage = new HomePage(page);
@@ -28,9 +35,9 @@ test.beforeEach(async ({ page }) => {
 
 test('Creat an article without text', async () => {
   await homePage.clickNewArticleLink();
-  await createArticlePage.fillArticleTitleField('Tralalelo tralala');
-  await createArticlePage.fillDescriptionField('tun tun tun sahur');
-  await createArticlePage.fillEnterTagField('tag');
+  await createArticlePage.fillArticleTitleField(article.title);
+  await createArticlePage.fillDescriptionField(article.description);
+  await createArticlePage.fillEnterTagField(article.tag);
   await createArticlePage.clickPublishArticleButton();
   await createArticlePage.assertErrorMessageContainsText('Article body cannot be empty');
 });

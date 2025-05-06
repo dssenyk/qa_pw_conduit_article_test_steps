@@ -7,6 +7,13 @@ import { faker } from '@faker-js/faker';
 let homePage;
 let createArticlePage;
 
+const article = {
+  title: faker.lorem.sentence(),
+  description: faker.lorem.paragraph(),
+  content: faker.lorem.paragraph(),
+  tag: faker.lorem.word(),
+};
+
 test.beforeEach(async ({ page }) => {
   const signUpPage = new SignUpPage(page);
   homePage = new HomePage(page);
@@ -28,9 +35,9 @@ test.beforeEach(async ({ page }) => {
 
 test('create an article without article description', async () => {
   await homePage.clickNewArticleLink();
-  await createArticlePage.fillArticleTitleField('Tralalelo tralala');
-  await createArticlePage.fillWriteYourArticleField('sinpazini hydzini');
-  await createArticlePage.fillEnterTagField('tag');
+  await createArticlePage.fillArticleTitleField(article.title);
+  await createArticlePage.fillWriteYourArticleField(article.description);
+  await createArticlePage.fillEnterTagField(article.tag);
   await createArticlePage.clickPublishArticleButton();
   await createArticlePage.assertErrorMessageContainsText('Article description cannot be empty');
 })
